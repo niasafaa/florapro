@@ -1,17 +1,18 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import register from './components/register';
-import login from './components/login';
-import protectedTEST from './components/protectedTEST';
-
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+const register = lazy(() => import('./components/register'));
+const login = lazy(() => import('./components/login'));
+const protectedTEST = lazy(() => import('./components/protectedTEST'));
+
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Route
+      <Suspense fallback ={<div>Loading...</div>}>
+      <Route
           exact
           path="/"
           render={() => (
@@ -29,10 +30,10 @@ function App() {
             </React.Fragment>
           )}
         />
-        <Route path="/register" component={register} />
-        <Route path="/login" component={login} />
-        <Route path="/protectedTEST" component={protectedTEST} />
-      </div>
+        <Route exact path="/register" component={register}/>
+        <Route exact path="/login" component={login}/>
+        <Route exact path="/protectedtest" component={protectedTEST}/>
+      </Suspense>
     </Router>
   );
 }
