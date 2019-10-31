@@ -1,39 +1,54 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Button, Checkbox, Form, Grid, Container } from 'semantic-ui-react';
+import axios from 'axios';
+import useForm from "./useForm";
+import { Redirect } from 'react-router-dom'
 
-const Register = () => (
+const Register = () => {
+  const [status, setStatus] = useState(0);
+
+  const login = async() => {
+    console.log(values);
+    let res = await axios.post('/appAPI/register', values);
+    setStatus(res.status);
+    };
+
+  const { values, handleChange, handleSubmit } = useForm(login);
+  if (status === 200)  { return <Redirect to='/protectedTEST' />};
+  return (
   <Container>
-  <Grid>
-    <Grid.Column>
-  <Form>
-    <Form.Field>
-      <label>First Name</label>
-      <input placeholder="First Name" />
-    </Form.Field>
-    <Form.Field>
-      <label>Last Name</label>
-      <input placeholder="Last Name" />
-    </Form.Field>
-    <Form.Field>
-      <label>Username</label>
-      <input placeholder="Username" />
-    </Form.Field>
-    <Form.Field>
-      <label>Email</label>
-      <input placeholder="Email" />
-    </Form.Field>
-    <Form.Field>
-      <label>Password</label>
-      <input placeholder="Password" />
-    </Form.Field>
-    <Form.Field>
-      <Checkbox label="I agree to the Terms and Conditions" />
-    </Form.Field>
-    <Button type="submit">Submit</Button>
-  </Form>
-  </Grid.Column>
-  </Grid>
+    <Grid>
+      <Grid.Column>
+    <Form onSubmit={handleSubmit}>
+      <Form.Field>
+        <label>First Name</label>
+        <input name="firstName"  placeholder="First Name" onChange={handleChange} value={values.firstName} required/>
+      </Form.Field>
+      <Form.Field>
+        <label>Last Name</label>
+        <input name="lastName" placeholder="Last Name" onChange={handleChange} value={values.lastName} required/>
+      </Form.Field>
+      <Form.Field>
+        <label>Username</label>
+        <input name="username" placeholder="Username" onChange={handleChange} value={values.username} required/>
+      </Form.Field>
+      <Form.Field>
+        <label>Email</label>
+        <input name="email" placeholder="Email" onChange={handleChange} value={values.email} required/>
+      </Form.Field>
+      <Form.Field>
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} value={values.password} required/>
+      </Form.Field>
+      <Form.Field>
+        <Checkbox label="I agree to the Terms and Conditions" />
+      </Form.Field>
+      <Button type="submit">Submit</Button>
+    </Form>
+    </Grid.Column>
+    </Grid>
   </Container>
-);
+  )
+};
 
 export default Register;

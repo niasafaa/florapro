@@ -8,7 +8,7 @@ const login = lazy(() => import('./components/login'));
 const protectedTEST = lazy(() => import('./components/protectedTEST'));
 
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Suspense fallback ={<div>Loading...</div>}>

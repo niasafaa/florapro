@@ -12,14 +12,12 @@ CREATE TABLE users
   last_name text NOT NULL,
   username text NOT NULL unique,
   email text NOT NULL unique,
-  password_digest text,
-  birth_date date,
-  date_registered datetime,
+  password_digest text
 );
 
 CREATE TABLE gut_data
 (
   id SERIAL NOT NULL PRIMARY KEY,
   user_id integer REFERENCES users(id),
-  test_data text,
-)
+  test_data text
+);

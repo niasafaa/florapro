@@ -16,7 +16,7 @@ const pgConnect = () => {
     console.log('connected as Administrator');
   });
 };
-// pgConnect();
+pgConnect();
 
 if (process.env.NODE_ENV === 'production') {
   exp.use(cors());
