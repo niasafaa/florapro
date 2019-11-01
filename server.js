@@ -1,22 +1,14 @@
+require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
-const client = require('./db');
+const passport = require('./database/config/passport');
 
 const exp = express();
 // const PORT = process.env.PORT || 5000;
 exp.set('port', process.env.PORT || 5000);
 
-// Connection to database
-const pgConnect = () => {
-  client.connect(err => {
-    if (err) throw err;
-
-    console.log('Welcome to FloraPRO');
-    console.log('connected as Administrator');
-  });
-};
-pgConnect();
+exp.use(passport.initialize());
 
 if (process.env.NODE_ENV === 'production') {
   exp.use(cors());

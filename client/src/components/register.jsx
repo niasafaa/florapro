@@ -12,9 +12,10 @@ const Register = () => {
     let res = await axios.post('/appAPI/register', values);
     setStatus(res.status);
     };
-
   const { values, handleChange, handleSubmit } = useForm(login);
+  
   if (status === 200)  { return <Redirect to='/protectedTEST' />};
+  
   return (
   <Container>
     <Grid>

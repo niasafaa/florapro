@@ -14,13 +14,18 @@
   "license": "Cash Money",
   "dependencies": {
     "axios": "^0.19.0",
+    "bookshelf": "^1.0.1",
+    "bookshelf-secure-password": "^4.0.0",
     "concurrently": "^4.1.2",
     "cors": "^2.8.5",
     "dotenv": "^8.1.0",
     "eventful-node": "^1.1.1",
     "express": "^4.17.1",
     "inquirer": "*",
+    "knex": "^0.20.1",
     "nodemon": "^1.19.3",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "path": "^0.12.7",
     "pg": "*"
   }
