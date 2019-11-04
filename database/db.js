@@ -1,3 +1,5 @@
+// Setting up connection to db with secure password plugin.
+// Plugin with handle encryption and authentication of passwords passed to database.
 const knex = require('knex');
 const knexDb = knex({
   client: 'pg',
