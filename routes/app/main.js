@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
-const client = require('../../db');
+const client = require('../../database/db');
 
 const router = express.Router();
 //register user

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "cd client && npm install && npm run build",
-    "server": "node server.js",
+    "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
@@ -14,8 +14,10 @@
   "license": "Cash Money",
   "dependencies": {
     "axios": "^0.19.0",
-    "bookshelf": "^1.0.1",
+    "bcrypt": "^3.0.6",
+    "bookshelf": "*",
     "bookshelf-secure-password": "^4.0.0",
+    "bookshelf-virtuals-plugin": "^0.1.1",
     "concurrently": "^4.1.2",
     "cors": "^2.8.5",
     "dotenv": "^8.1.0",
@@ -23,7 +25,7 @@
     "express": "^4.17.1",
     "inquirer": "*",
     "knex": "^0.20.1",
-    "nodemon": "^1.19.3",
+    "nodemon": "^1.19.4",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "path": "^0.12.7",
