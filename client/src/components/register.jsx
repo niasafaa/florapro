@@ -2,17 +2,18 @@ import React, {useState} from 'react';
 import { Button, Checkbox, Form, Grid, Container } from 'semantic-ui-react';
 import axios from 'axios';
 import useForm from "./useForm";
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import setToken from './setToken';
 
 const Register = () => {
   const [status, setStatus] = useState(0);
 
-  const login = async() => {
-    console.log(values);
-    let res = await axios.post('/appAPI/register', values);
+  const register = async() => {
+    let res = await axios.post('/authAPI/seedUser', values);
     setStatus(res.status);
+    setToken(values.email, values.password);
     };
-  const { values, handleChange, handleSubmit } = useForm(login);
+  const { values, handleChange, handleSubmit } = useForm(register);
   
   if (status === 200)  { return <Redirect to='/protectedTEST' />};
   
