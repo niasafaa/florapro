@@ -6,13 +6,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const register = lazy(() => import('./components/register'));
 const login = lazy(() => import('./components/login'));
 const protectedTEST = lazy(() => import('./components/protectedTEST'));
-
+const landingPage = lazy(() => import('./components/landingPage'));
 
 const App = () => {
   return (
     <Router>
-      <Suspense fallback ={<div>Loading...</div>}>
-      <Route
+      <Suspense fallback={<div>Loading...</div>}>
+        <Route
           exact
           path="/"
           render={() => (
@@ -27,15 +27,19 @@ const App = () => {
               <Link style={{ display: 'flex' }} to="/protectedTEST">
                 Protected
               </Link>
+              <Link style={{ display: 'flex' }} to="/landingPage">
+                Landing Page
+              </Link>
             </React.Fragment>
           )}
         />
-        <Route exact path="/register" component={register}/>
-        <Route exact path="/login" component={login}/>
-        <Route exact path="/protectedtest" component={protectedTEST}/>
+        <Route exact path="/landingPage" component={landingPage} />
+        <Route exact path="/register" component={register} />
+        <Route exact path="/login" component={login} />
+        <Route exact path="/protectedtest" component={protectedTEST} />
       </Suspense>
     </Router>
   );
-}
+};
 
 export default App;

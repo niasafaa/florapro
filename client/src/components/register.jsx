@@ -11,7 +11,7 @@ const Register = () => {
   const register = async() => {
     let res = await axios.post('/authAPI/seedUser', values);
     setStatus(res.status);
-    setToken(values.email, values.password);
+    await setToken(values.email, values.password);
     };
   const { values, handleChange, handleSubmit } = useForm(register);
   
