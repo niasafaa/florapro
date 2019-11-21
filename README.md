@@ -14,7 +14,7 @@ My project data comes from the American Gut Project which is stored with Europea
 
 The diagram below outlines the general process.
 
-![Workflow Diagram](./img/FloraProDataWorkflow.png)
+![Workflow Diagram](/img/FloraProDataWorkflow.png)
 
 ## App Installation
 
