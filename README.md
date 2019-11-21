@@ -10,7 +10,7 @@ The FloraPro application will allow user to create a user profile. Order a test 
 
 ## Data Workflow
 
-My project data comes from the American Gut Project which is stored with European Nucleotide Archive (ENA). The data consists of 25000 fecal, oral and skin samples from individuals across the US. Along with this data is are participant questionnaires which provide data on a wide ranging set of patient health and lifestyle info.
+My project data comes from the American Gut Project which is stored with [European Nucleotide Archive](https://www.ebi.ac.uk/ena/data/view/PRJEB11419) (ENA). The data consists of 25000 fecal, oral and skin samples from individuals across the US. Along with this data is are participant questionnaires which provide data on a wide ranging set of patient health and lifestyle info.
 
 The diagram below outlines the general process.
 
