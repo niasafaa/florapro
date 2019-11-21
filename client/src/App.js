@@ -7,6 +7,7 @@ const register = lazy(() => import('./components/register'));
 const login = lazy(() => import('./components/login'));
 const protectedTEST = lazy(() => import('./components/protectedTEST'));
 const landingPage = lazy(() => import('./components/landingPage'));
+const dashBoard = lazy(() => import('./components/dashboard/Dashboard.js'));
 
 const App = () => {
   return (
@@ -30,6 +31,9 @@ const App = () => {
               <Link style={{ display: 'flex' }} to="/landingPage">
                 Landing Page
               </Link>
+              <Link style={{ display: 'flex' }} to="/dashBoard">
+                Dasboard
+              </Link>
             </React.Fragment>
           )}
         />
@@ -37,6 +41,7 @@ const App = () => {
         <Route exact path="/register" component={register} />
         <Route exact path="/login" component={login} />
         <Route exact path="/protectedtest" component={protectedTEST} />
+        <Route exact path="/dashBoard" component={dashBoard} />
       </Suspense>
     </Router>
   );
