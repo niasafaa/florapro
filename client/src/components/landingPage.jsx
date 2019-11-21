@@ -44,7 +44,7 @@ const HomepageHeading = ({ mobile }) => (
     />
     <Header
       as="h2"
-      content="Do whatever you want when you want to."
+      content="Know your gut."
       inverted
       style={{
         fontSize: mobile ? '1.5em' : '1.7em',
@@ -86,8 +86,10 @@ class DesktopContainer extends Component {
         >
           <Segment
             inverted
-            textAlign="center"
-            style={{ minHeight: 700, padding: '1em 0em' }}
+            style={{
+              minHeight: 700,
+              padding: '1em 0em'
+            }}
             vertical
           >
             <Menu
