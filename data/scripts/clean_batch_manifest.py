@@ -20,6 +20,7 @@ for record in data:
         temp_dict = {}
         sample_accession = record['sample_accession']
         temp_dict['sample_accession'] = sample_accession
+        temp_dict['run_accession'] = record['run_accession']
         temp_dict['xml_ftp'] = f'https://www.ebi.ac.uk/ena/browser/api/xml/{sample_accession}?download=true'
         temp_dict['fastq_ftp'] = record['fastq_ftp']
         output_list.append(temp_dict)
