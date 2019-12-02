@@ -6,6 +6,7 @@ parser = argparse.ArgumentParser(
     description='Get neccessary info for picklist and create batches.')
 parser.add_argument('input_file', type=str, help='json file')
 parser.add_argument('-limit', required=False, type=int, help='integer')
+parser.add_argument('-batch_size', required=False, type=int, help='integer')
 args = parser.parse_args()
 
 with open(args.input_file, 'r') as data_file:
@@ -14,8 +15,10 @@ with open(args.input_file, 'r') as data_file:
 data = json.loads(json_data)
 
 output_list = []
-BATCH_SIZE = 500
+BATCH_SIZE = 250
 file_suffix = 1
+if args.batch_size:
+    BATCH_SIZE = args.batch_size
 if args.limit:
     del data[args.limit:]
 

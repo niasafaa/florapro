@@ -37,5 +37,5 @@ for r in reads:
     temp_dict['accession'] = search_res['hits'][0]['description'][0]['accession'] or None
     output_list.append(temp_dict)
 
-coll.update({"sample_accession": SAMPLE_ACCESSION}, {
-            "$set": {"run_accession": RUN_ACCESSION, "read_data": output_list}})
+coll.update_one({"sample_accession": SAMPLE_ACCESSION}, {
+    "$set": {"run_accession": RUN_ACCESSION, "read_data": output_list}})

@@ -52,5 +52,5 @@ for record in picklist:
         ['python3', PATH_TO_MONGO_XML, XML_NAME])
     subprocess.check_call(
         ['python3', PATH_TO_MONGO_JSON, BLAST_OUTPUT])
-    subprocess.check_call(['rm', FASTA, REDUCED_FASTA,
-                           FASTQ_UNZIP, BLAST_OUTPUT, XML_NAME])
+    # subprocess.check_call(['rm', FASTA, REDUCED_FASTA,
+    #                        FASTQ_UNZIP, BLAST_OUTPUT, XML_NAME])
