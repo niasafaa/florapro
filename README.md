@@ -47,9 +47,96 @@ For the purposes of my project I am processing the FASTQ format sequencing reads
 
 ### Pipeline Design
 
-### Data Scripts Overview
+The total of the data I've chosen to process for my project amounts to about ~250GB of data. Lack of storage space suggested a need for an iterative solution to process the raw input into a much smaller output. The final data amount stored on my database is only ~3GB.
 
-#### clean_batch_manifest.py
+The desired final output is a collection of documents of each of the 20k samples that contains patient metadata information and profiled bacterial species with associated overall abundance.
+
+To achieve this I've broken down the run into a series of steps which can also viewed in the workflow diagram above.
+
+#### Process:
+
+#### Step 1: FTP FASTQ and XML from ENA
+
+ENA provides a standardized FTP model for downloading all publicly available studies.
+
+```
+wget -O myZippedFASTQfile ftp.sra.ebi.ac.uk/vol1/fastq/ERR107/006/ERR1073126/ERR1073126.fastq.gz
+
+wget -O myXMLPatientData https://www.ebi.ac.uk/ena/browser/api/xml/SAMEA3608091?download=true
+```
+
+To automate this process I downloaded the study report in JSON format which contained all the FTP web addresses and associated run and sample accession ids.
+
+Example Entry from Report:
+
+```json
+{
+  "study_accession": "PRJEB11419",
+  "sample_accession": "SAMEA3607589",
+  "experiment_accession": "ERX1152774",
+  "run_accession": "ERR1072624",
+  "tax_id": "408170",
+  "scientific_name": "human gut metagenome",
+  "fastq_ftp": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR107/004/ERR1072624/ERR1072624.fastq.gz",
+  "submitted_ftp": "ftp.sra.ebi.ac.uk/vol1/run/ERR107/ERR1072624/10317.000001002.fastq.gz",
+  "sra_ftp": "ftp.sra.ebi.ac.uk/vol1/err/ERR107/004/ERR1072624"
+}
+```
+
+[clean_batch_manifest.py](https://github.com/niasafaa/florapro/blob/master/data/scripts/clean_batch_manifest.py) reads the report JSON file and checks that the sample type is from the gut (not skin or mouth) and creates batched output pickle files which contain the essential data for downloading each record in the form of the sample_accession, run_accession, fastq_ftp, xml_ftp. I've also added options which allow for max rows of data and batch sizes to be set.
+
+Example Output:
+
+```json
+{
+  "sample_accession": "SAMEA3608090",
+  "run_accession": "ERR1073125",
+  "xml_ftp": "https://www.ebi.ac.uk/ena/browser/api/xml/SAMEA3608090?download=true",
+  "fastq_ftp": "ftp.sra.ebi.ac.uk/vol1/fastq/ERR107/005/ERR1073125/ERR1073125.fastq.gz"
+}
+```
+
+#### Step 2: FASTQ to FASTA to Reduced FASTA
+
+After wget command is run on the ftp urls and everyting is unzipped - the process of cleaning the raw sequence data starts.
+
+In examining these FASTQ files I found that there were high levels of homology across the sequence reads. This is to be expected and helps to provide phyla abundance scores for analysis. It also reduces the number of overall sequences that need to be aligned against the reference genome database.
+
+For example if greping a random sequence from the FASTQ file showed it appeard roughly ~3500 times:
+
+```
+grep "TACAGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGCGCGCGTAGGTGGTTTGTTAAGTTGAATGTGAAATCCCCGGGCTCAACCTGGGAACTGCATCCAAAACTGGCAAGCTAGAGTATGGTAGAGGGTAGTGGAATTTCCTGT" ERR1072624.fastq | wc -l
+```
+
+Futhermore to narrow the scope of my data analysis I dropped the base pair quality scores from the FASTQ and created a FASTA formmatted document. To mitigate against read errors I've elminated any sequence with less than 20 reads (identical sequences). The FASTQ to FASTA conversion can be performed with some piping on the command line.
+
+FASTQ to FASTA:
+
+```
+paste - - - - < file.fq | cut -f 1,2 | sed 's/^@/>/' | tr "\t" "\n" > file.fa
+```
+
+The output is this FASTA format. Still with roughly 17k sequences:
+
+```
+>ERR1072624.1 10317.000001002_0/1
+TACGTAGGTGGCGAGCGTTGTCCGGAATTATTGGGCGTAAAGAGCATGTAGGCGGCTTAATAAGTCGAGCGTGAAAATGCGGGGCTCAACCCCGTATGGCGCTGGAAACTGTTAGGCTTGAGTGCAGGAGAGGAAAGGGGAATTCCCAGTG
+```
+
+The last part of this step is to reduce the 17k sequences down to just the unique sequences which have more than 20 reads. [reduce_fasta.py](https://github.com/niasafaa/florapro/blob/master/data/scripts/reduce_fasta.py) is reponsible for performing this tak.
+
+The ouput is as follows - to persist the number of reads I've stored that info sequence name portion of the FASTA.
+
+```
+>124
+TACGTAGGTGGCGAGCGTTGTCCGGAATTATTGGGCGTAAAGAGCATGTAGGCGGCTTAATAAGTCGAGCGTGAAAATGCGGGGCTCAACCCCGTATGGCGCTGGAAACTGTTAGGCTTGAGTGCAGGAGAGGAAAGGGGAATTCCCAGTG
+```
+
+This reduced fasta file is now ready to processed via BLAST.
+
+#### Step 3: BLAST Reduced Sequences to Achieve Taxonomic Profiling
+
+### Data Scripts Overview
 
 #### reduce_fasta.py
 
