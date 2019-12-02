@@ -136,6 +136,8 @@ This reduced fasta file is now ready to processed via BLAST.
 
 #### Step 3: BLAST Reduced Sequences to Achieve Taxonomic Profiling
 
+[BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) or Basic Local Alignment Search Tool is a bioinformatic resource that can be used to align query sequences against a number of NCBI reference genome databases.
+
 ### Data Scripts Overview
 
 #### reduce_fasta.py
