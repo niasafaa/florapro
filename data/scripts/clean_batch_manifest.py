@@ -31,7 +31,7 @@ for record in data:
         temp_dict['xml_ftp'] = f'https://www.ebi.ac.uk/ena/browser/api/xml/{sample_accession}?download=true'
         temp_dict['fastq_ftp'] = record['fastq_ftp']
         output_list.append(temp_dict)
-        if len(output_list) == BATCH_SIZE:  # dividing into batches of 500
+        if len(output_list) == BATCH_SIZE:  # dividing into batches
             with open(f'manifest_batch{file_suffix}.pickle', 'wb') as filehandle:
                 pickle.dump(output_list, filehandle)
                 filehandle.close()
