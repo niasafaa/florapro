@@ -1,4 +1,4 @@
-# FloraPRO - README Draft
+# FloraPRO - README
 
 ## Overview
 
@@ -8,13 +8,37 @@ The FloraPro application will allow user to create a user profile. Order a test 
 
 > Note: This project is a work in progress so some features may not be present or fully functional.
 
-## Data Workflow
+## Data Workflow Overview
 
 My project data comes from the American Gut Project which is stored with [European Nucleotide Archive](https://www.ebi.ac.uk/ena/data/view/PRJEB11419) (ENA). The data consists of 25000 fecal, oral and skin samples from individuals across the US. Along with this data is are participant questionnaires which provide data on a wide ranging set of patient health and lifestyle info.
 
 The diagram below outlines the general process.
 
-![Workflow Diagram](/img/FloraProDataWorkflow.png)
+![Workflow Diagram](/img/DATAPIPELINE.png)
+
+## Data Pipeline In-Depth
+
+A more in depth explanation and analysis of the data pipeline as well as an explantion of some of the underlying bioinformatics and genomics.
+
+### Sequencing Reads and ENA Data
+
+### Data Scripts Overview
+
+#### clean_batch_manifest.py
+
+#### reduce_fasta.py
+
+#### mongo_store_meta_xml.py
+
+#### mongo_store_reads_json.py
+
+#### data_pipeline_process.py
+
+#### run_process_simultaneously.py
+
+### Setting Up Environment
+
+### Remote Server Set Up
 
 ## App Installation
 
