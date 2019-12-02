@@ -3,9 +3,9 @@ import pickle
 import json
 
 parser = argparse.ArgumentParser(
-    description='Reduce fasta file to common sequences.')
-parser.add_argument('input_file', type=str, help='fasta file')
-parser.add_argument('-limit', required=False, type=int, help='fasta file')
+    description='Get neccessary info for picklist and create batches.')
+parser.add_argument('input_file', type=str, help='json file')
+parser.add_argument('-limit', required=False, type=int, help='integer')
 args = parser.parse_args()
 
 with open(args.input_file, 'r') as data_file:
