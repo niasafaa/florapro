@@ -5,6 +5,7 @@ import json
 parser = argparse.ArgumentParser(
     description='Reduce fasta file to common sequences.')
 parser.add_argument('input_file', type=str, help='fasta file')
+parser.add_argument('-limit', required=False, type=int, help='fasta file')
 args = parser.parse_args()
 
 with open(args.input_file, 'r') as data_file:
@@ -15,6 +16,9 @@ data = json.loads(json_data)
 output_list = []
 BATCH_SIZE = 500
 file_suffix = 1
+if args.limit:
+    del data[args.limit:]
+
 for record in data:
     if record['scientific_name'] == 'human gut metagenome':  # picking only fecal samples
         temp_dict = {}
