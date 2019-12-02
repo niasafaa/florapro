@@ -28,6 +28,8 @@ output_list = []
 for r in reads:
     temp_dict = {}
     search_res = r['report']['results']['search']
+    if not search_res['hits']:
+        continue
     temp_dict['num_reads'] = int(
         search_res['query_title']) or None
     temp_dict['scientific_name'] = search_res['hits'][0]['description'][0]['sciname'] or None

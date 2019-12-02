@@ -26,6 +26,7 @@ picklist = pickle.load(open(args.input_file, "rb"))
 PATH_TO_REDUCE_FASTA = f'{DIR_NAME}/reduce_fasta.py'
 PATH_TO_MONGO_XML = f'{DIR_NAME}/mongo_store_meta_xml.py'
 PATH_TO_MONGO_JSON = f'{DIR_NAME}/mongo_store_reads_json.py'
+ERRORS = ''
 
 for record in picklist:
     SAMPLE_ACCESSION = record['sample_accession']
@@ -39,18 +40,28 @@ for record in picklist:
     FASTA = f'{BASE_NAME}.fasta'
     REDUCED_FASTA = f'{BASE_NAME}.reduced.fasta'
     BLAST_OUTPUT = f'{BASE_NAME}.json'
-    subprocess.check_call(['wget', '-O', XML_NAME, XML_URL])
-    subprocess.check_call(['wget', '-O', FASTQ_NAME, FASTQ_URL])
-    subprocess.check_call(['gunzip', FASTQ_NAME])
-    subprocess.check_call(
+    subprocess.run(['wget', '-O', XML_NAME, XML_URL])
+    subprocess.run(['wget', '-O', FASTQ_NAME, FASTQ_URL])
+    subprocess.run(['gunzip', FASTQ_NAME])
+    subprocess.run(
         f"paste - - - - < {FASTQ_UNZIP} | cut -f 1,2 | sed 's/^@/>/' | tr '\t' '\n' > {FASTA}", shell=True)
-    subprocess.check_call(
-        ['python3', PATH_TO_REDUCE_FASTA, FASTA, REDUCED_FASTA])
-    subprocess.check_call(
-        f'blastn -db ../16SMicrobial  -query {REDUCED_FASTA} -max_target_seqs 1 -out {BLAST_OUTPUT} -outfmt 15', shell=True)
-    subprocess.check_call(
+    fasta_check = subprocess.run(
+        ['python3', PATH_TO_REDUCE_FASTA, FASTA, REDUCED_FASTA], stderr=subprocess.PIPE)
+    if fasta_check.stderr:
+        # ERRORS += fasta_check.stderr.decode('utf-8') + '\n'
+        print(f'No output for Accession: {BASE_NAME}.')
+        subprocess.run(['rm', FASTA, FASTQ_UNZIP, XML_NAME, REDUCED_FASTA])
+        continue
+    json_check = subprocess.run(
+        f'blastn -db ../16SMicrobial  -query {REDUCED_FASTA} -max_target_seqs 1 -out {BLAST_OUTPUT} -outfmt 15', shell=True, stderr=subprocess.PIPE)
+    # print("\n\n\n\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n\n\n\n\n")
+    # print(json_check.stderr.decode('utf-8'))
+    # print(f'\n{BASE_NAME}')
+    # print("\n\n\n\n\n\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n\n\n\n\n\n")
+    subprocess.run(
         ['python3', PATH_TO_MONGO_XML, XML_NAME])
-    subprocess.check_call(
+    subprocess.run(
         ['python3', PATH_TO_MONGO_JSON, BLAST_OUTPUT])
-    # subprocess.check_call(['rm', FASTA, REDUCED_FASTA,
-    #                        FASTQ_UNZIP, BLAST_OUTPUT, XML_NAME])
+    subprocess.run(['rm', FASTA, REDUCED_FASTA,
+                    FASTQ_UNZIP, BLAST_OUTPUT, XML_NAME])
+# print(ERRORS)

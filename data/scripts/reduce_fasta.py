@@ -22,5 +22,7 @@ with open(args.output_file, "w") as out_file:
         write_str += f">{count}\n{seq}\n"
     # json = json.dumps(output_dict)
     # out_file.write(json)
+    if not write_str:
+        raise SystemExit("Ouput empty for reduced fasta.")
     out_file.write(write_str)
     out_file.close()
