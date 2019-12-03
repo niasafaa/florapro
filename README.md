@@ -164,8 +164,6 @@ Using the script [data_pipeline_process.py](https://github.com/niasafaa/florapro
 
 To handle this issue I created [run_process_simultaneously.py](https://github.com/niasafaa/florapro/blob/master/data/scripts/run_process_simultaneously.py) script which creates multiproccesed data_pipeline_process calls on all the batch files in the directory.
 
-## Running Data Scripts
-
 ## App Installation
 
 STEP 1: Clone the repo to your local computer.
