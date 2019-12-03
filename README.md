@@ -83,7 +83,7 @@ Example Entry from Report:
 }
 ```
 
-[clean_batch_manifest.py](https://github.com/niasafaa/florapro/blob/master/data/scripts/clean_batch_manifest.py) reads the report JSON file and checks that the sample type is from the gut (not skin or mouth) and creates batched output pickle files which contain the essential data for downloading each record in the form of the sample_accession, run_accession, fastq_ftp, xml_ftp. I've also added options which allow for max rows of data and batch sizes to be set.
+The script [clean_batch_manifest.py](https://github.com/niasafaa/florapro/blob/master/data/scripts/clean_batch_manifest.py) reads the report JSON file and checks that the sample type is from the gut (not skin or mouth) and creates batched output pickle files which contain the essential data for downloading each record in the form of the sample_accession, run_accession, fastq_ftp, xml_ftp. I've also added options which allow for max rows of data and batch sizes to be set.
 
 Example Output:
 
@@ -152,11 +152,17 @@ This will return the pairwise alignment and taxonomic profiling data.
 
 The script [mongo_store_meta_xml.py](https://github.com/niasafaa/florapro/blob/master/data/scripts/mongo_store_meta_xml.py) is used to store each parsed raw XML patient data files in a MongoDB document.
 
-[mongo_store_reads_json.py](https://github.com/niasafaa/florapro/blob/master/data/scripts/mongo_store_reads_json.py) is used to then store each samples blastn json data in the associated MongoDB document.
+The script [mongo_store_reads_json.py](https://github.com/niasafaa/florapro/blob/master/data/scripts/mongo_store_reads_json.py) is used to then store each samples blastn json data in the associated MongoDB document.
 
 #### Step 5: Delete Resource Files
 
-To conserve memory during batch runs I delete all downloaded and generated intermediary files.
+To conserve memory during batch runs I delete all downloaded and generated intermediary files. This allows for the processing of roughly 200GB with minimal storage needs.
+
+#### Step 6: Batch, Parallelize, and Scale
+
+Using the script [data_pipeline_process.py](https://github.com/niasafaa/florapro/blob/master/data/scripts/data_pipeline_process.py) all scripts and shell commands are run via the subprocess module. At critical run steps errs are piped to stderr in the subprocess then the run for that sample accession is scrapped after it will continue to the next sample in the picklist. This will run the entire data pipeline from the FTP for raw data to insertion into MongoDB. As it stands now the total runtime for a single sample out of the 20k is 20s. Processing all the samples could result in a runtime of over 2 days and is certainly more error prone.
+
+To handle this issue I created [run_process_simultaneously.py](https://github.com/niasafaa/florapro/blob/master/data/scripts/run_process_simultaneously.py) script which creates multiproccesed data_pipeline_process calls on all the batch files in the directory.
 
 ## Running Data Scripts
 
