@@ -138,21 +138,27 @@ This reduced fasta file is now ready to processed via BLAST.
 
 [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) or Basic Local Alignment Search Tool is a bioinformatic resource that can be used to align query sequences against a number of NCBI reference genome databases.
 
-### Data Scripts Overview
+I'm using the [16SMicrobial DB](ftp://ftp.ncbi.nlm.nih.gov/blast/db/) with the accompanying TaxDB for taxonomic profiling.
 
-#### reduce_fasta.py
+After set up and installation the command can be run as follows:
 
-#### mongo_store_meta_xml.py
+```
+blastn -db 16SMicrobial  -query query_fasta -max_target_seqs 1 -out output.json -outfmt 15
+```
 
-#### mongo_store_reads_json.py
+This will return the pairwise alignment and taxonomic profiling data.
 
-#### data_pipeline_process.py
+#### Step 4: STORE XML Patient Data and JSON Run Analysis in MongoDB
 
-#### run_process_simultaneously.py
+The script [mongo_store_meta_xml.py](https://github.com/niasafaa/florapro/blob/master/data/scripts/mongo_store_meta_xml.py) is used to store each parsed raw XML patient data files in a MongoDB document.
 
-### Setting Up Environment
+[mongo_store_reads_json.py](https://github.com/niasafaa/florapro/blob/master/data/scripts/mongo_store_reads_json.py) is used to then store each samples blastn json data in the associated MongoDB document.
 
-### Remote Server Set Up
+#### Step 5: Delete Resource Files
+
+To conserve memory during batch runs I delete all downloaded and generated intermediary files.
+
+## Running Data Scripts
 
 ## App Installation
 
