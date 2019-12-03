@@ -20,6 +20,8 @@ The diagram below outlines the general process.
 
 A more in depth explanation and analysis of the data pipeline as well as an explantion of some of the underlying bioinformatics and genomics.
 
+> All pipeline scripts can be found in data/scripts
+
 ### Sequencing Reads and ENA Data
 
 The ENA (European Nucleotide Archive) stores the raw sequencing data for the submitted study in a FASTQ file. For the Human Gut Project, submitted fecal, oral and skin undergo a DNA extraction process that includes the homogenization the sample, cell lysis, and DNA purification.
