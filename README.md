@@ -14,7 +14,7 @@ My project data comes from the American Gut Project which is stored with [Europe
 
 The diagram below outlines the general process.
 
-![Workflow Diagram](/img/DATAPIPELINE.png)
+![Workflow Diagram](/img/DATAPIPELINE.jpeg)
 
 ## Data Pipeline In-Depth
 
