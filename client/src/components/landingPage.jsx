@@ -15,10 +15,8 @@ import {
   Sidebar,
   Visibility
 } from 'semantic-ui-react';
+import background from '../img/img4cover.jpg';
 
-// Heads up!
-// We using React Static to prerender our docs with server side rendering, this is a quite simple solution.
-// For more advanced usage please check Responsive docs under the "Usage" section.
 const getWidth = () => {
   const isSSR = typeof window === 'undefined';
 
@@ -26,9 +24,7 @@ const getWidth = () => {
 };
 
 /* eslint-disable react/no-multi-comp */
-/* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
- * such things.
- */
+
 const HomepageHeading = ({ mobile }) => (
   <Container text>
     <Header
@@ -36,23 +32,25 @@ const HomepageHeading = ({ mobile }) => (
       content="FloraPRO"
       inverted
       style={{
-        fontSize: mobile ? '2em' : '4em',
+        fontSize: mobile ? '2em' : '7em',
         fontWeight: 'normal',
         marginBottom: 0,
-        marginTop: mobile ? '1.5em' : '3em'
+        marginTop: mobile ? '1.5em' : '2em',
+        marginLeft: '-2em'
       }}
     />
     <Header
       as="h2"
-      content="Know your gut."
+      content="Know your flora."
       inverted
       style={{
         fontSize: mobile ? '1.5em' : '1.7em',
         fontWeight: 'normal',
-        marginTop: mobile ? '0.5em' : '1.5em'
+        marginTop: mobile ? '0.5em' : '1.5em',
+        marginLeft: '-8em'
       }}
     />
-    <Button primary size="huge">
+    <Button primary size="huge" style={{ marginLeft: '-11em' }}>
       Get Started
       <Icon name="right arrow" />
     </Button>
@@ -63,10 +61,6 @@ HomepageHeading.propTypes = {
   mobile: PropTypes.bool
 };
 
-/* Heads up!
- * Neither Semantic UI nor Semantic UI React offer a responsive navbar, however, it can be implemented easily.
- * It can be more complicated, but you can create really flexible markup.
- */
 class DesktopContainer extends Component {
   state = {};
 
@@ -88,7 +82,9 @@ class DesktopContainer extends Component {
             inverted
             style={{
               minHeight: 700,
-              padding: '1em 0em'
+              padding: '1em 0em',
+              backgroundImage: `url(${background})`,
+              backgroundSize: '120%'
             }}
             vertical
           >
@@ -103,9 +99,8 @@ class DesktopContainer extends Component {
                 <Menu.Item as="a" active>
                   Home
                 </Menu.Item>
-                <Menu.Item as="a">Work</Menu.Item>
-                <Menu.Item as="a">Company</Menu.Item>
-                <Menu.Item as="a">Careers</Menu.Item>
+                <Menu.Item as="a">Science</Menu.Item>
+                <Menu.Item as="a">About</Menu.Item>
                 <Menu.Item position="right">
                   <Button as="a" inverted={!fixed}>
                     Log in
@@ -224,19 +219,20 @@ const landingPage = () => (
         <Grid.Row>
           <Grid.Column width={8}>
             <Header as="h3" style={{ fontSize: '2em' }}>
-              We Help Companies and Companions
+              We Give People Access to Their Personalized Health
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              We can give your company superpowers to do things that they never
-              thought possible. Let us delight your customers and empower your
-              needs... through pure data analytics.
+              Bacteria plays an essential role in the health of your skin,
+              digestive system and even mind. FloraPRO allows users to test the
+              contents of their gut and skin bacteria and receive personalized
+              information about both their health.
             </p>
             <Header as="h3" style={{ fontSize: '2em' }}>
-              We Make Bananas That Can Dance
+              What Will You Do With Your Data
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              Yes that's right, you thought it was the stuff of dreams, but even
-              bananas can be bioengineered.
+              A 100% of our customers report making a lifestyle change based on
+              their test results.
             </p>
           </Grid.Column>
           <Grid.Column floated="right" width={6}>
@@ -244,13 +240,13 @@ const landingPage = () => (
               bordered
               rounded
               size="large"
-              src="/images/wireframe/white-image.png"
+              src={require('../img/test.jpg')}
             />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column textAlign="center">
-            <Button size="huge">Check Them Out</Button>
+            <Button size="huge">Learn More</Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -260,19 +256,30 @@ const landingPage = () => (
         <Grid.Row textAlign="center">
           <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
             <Header as="h3" style={{ fontSize: '2em' }}>
-              "What a Company"
+              "My FloraPRO test changed my life. I'm healthier than ever."
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              That is what they all say about us
+              <Image
+                bordered
+                centered
+                size="small"
+                src={require('../img/lil.png')}
+              />
+              <b>Lilia</b> Customer
             </p>
           </Grid.Column>
           <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
             <Header as="h3" style={{ fontSize: '2em' }}>
-              "I shouldn't have gone with their competitor."
+              "This is an excellent company. So glad I found FloraPRO!"
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              <Image avatar src="/images/avatar/large/nan.jpg" />
-              <b>Nan</b> Chief Fun Officer Acme Toys
+              <Image
+                bordered
+                size="small"
+                centered
+                src={require('../img/yas.png')}
+              />
+              <b>Yasmine</b> Customer
             </p>
           </Grid.Column>
         </Grid.Row>
@@ -280,14 +287,18 @@ const landingPage = () => (
     </Segment>
     <Segment style={{ padding: '8em 0em' }} vertical>
       <Container text>
+        <Header as="h1" style={{ fontSize: '3em' }}>
+          Our Science
+        </Header>
         <Header as="h3" style={{ fontSize: '2em' }}>
-          Breaking The Grid, Grabs Your Attention
+          Our Science Is Based On Demonstrated Results
         </Header>
         <p style={{ fontSize: '1.33em' }}>
-          Instead of focusing on content creation and hard work, we have learned
-          how to master the art of doing nothing by providing massive amounts of
-          whitespace and generic content that can seem massive, monolithic and
-          worth your attention.
+          My project data comes from the American Gut Project which is stored
+          with European Nucleotide Archive (ENA). The data consists of 25000
+          fecal, oral and skin samples from individuals across the US. Along
+          with this data is are participant questionnaires which provide data on
+          a wide ranging set of patient health and lifestyle info.
         </p>
         <Button as="a" size="large">
           Read More
@@ -301,15 +312,37 @@ const landingPage = () => (
           <a href="#">Case Studies</a>
         </Divider>
         <Header as="h3" style={{ fontSize: '2em' }}>
-          Did We Tell You About Our Bananas?
+          Sequencing Reads and ENA Data
         </Header>
         <p style={{ fontSize: '1.33em' }}>
-          Yes I know you probably disregarded the earlier boasts as non-sequitur
-          filler content, but it's really true. It took years of gene splicing
-          and combinatory DNA research, but our bananas can really dance.
+          The ENA (European Nucleotide Archive) stores the raw sequencing data
+          for the submitted study in a FASTQ file. For the Human Gut Project,
+          submitted fecal, oral and skin undergo a DNA extraction process that
+          includes the homogenization the sample, cell lysis, and DNA
+          purification. The purified DNA sample is then prepared for the
+          sequencing run. A PCR process is used to amplify the gene region of
+          interest, in this case the 16S RNA gene region which is specific to
+          bacteria and allows for taxonomic profiling of phyla and species.
         </p>
         <Button as="a" size="large">
-          I'm Still Quite Interested
+          Read More
+        </Button>
+      </Container>
+    </Segment>
+    <Segment style={{ padding: '8em 0em' }} vertical>
+      <Container text>
+        <Header as="h1" style={{ fontSize: '3em' }}>
+          About
+        </Header>
+        <p style={{ fontSize: '1.33em' }}>
+          The FloraPro application will allow user to create a user profile.
+          Order a test and receive their (mocked) gut flora data. The user will
+          then be able to see their results via an explorer page. Additional
+          features may include, probiotic product reccommendations and more
+          extensive product page.
+        </p>
+        <Button as="a" size="large">
+          Read More
         </Button>
       </Container>
     </Segment>
@@ -322,27 +355,21 @@ const landingPage = () => (
               <List link inverted>
                 <List.Item as="a">Sitemap</List.Item>
                 <List.Item as="a">Contact Us</List.Item>
-                <List.Item as="a">Religious Ceremonies</List.Item>
-                <List.Item as="a">Gazebo Plans</List.Item>
               </List>
             </Grid.Column>
             <Grid.Column width={3}>
               <Header inverted as="h4" content="Services" />
               <List link inverted>
-                <List.Item as="a">Banana Pre-Order</List.Item>
+                <List.Item as="a">Kit Pre-Order</List.Item>
                 <List.Item as="a">DNA FAQ</List.Item>
                 <List.Item as="a">How To Access</List.Item>
-                <List.Item as="a">Favorite X-Men</List.Item>
               </List>
             </Grid.Column>
             <Grid.Column width={7}>
               <Header as="h4" inverted>
-                Footer Header
+                Order Now
               </Header>
-              <p>
-                Extra space for a call to action inside the footer that could
-                help re-engage users.
-              </p>
+              <p>Be a part of the gut health movement.</p>
             </Grid.Column>
           </Grid.Row>
         </Grid>
