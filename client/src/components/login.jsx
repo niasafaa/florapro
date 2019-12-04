@@ -1,35 +1,50 @@
 import React from 'react';
-import { Button, Divider, Form, Grid, Segment } from 'semantic-ui-react';
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Image,
+  Message,
+  Segment
+} from 'semantic-ui-react';
 
 const Login = () => (
-  <Segment placeholder>
-    <Grid columns={2} relaxed="very" stackable>
-      <Grid.Column>
-        <Form>
+  <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
+    <Grid.Column style={{ maxWidth: 450 }}>
+      <Header as="h2" color="teal" textAlign="center">
+        <Image
+          src={require('../img/logo.png')}
+          style={{ width: '960px', height: 'auto' }}
+        />{' '}
+        Log-in to your account
+      </Header>
+      <Form size="large">
+        <Segment stacked>
           <Form.Input
+            fluid
             icon="user"
             iconPosition="left"
-            label="Username"
-            placeholder="Username"
+            placeholder="E-mail address"
           />
           <Form.Input
+            fluid
             icon="lock"
             iconPosition="left"
-            label="Password"
+            placeholder="Password"
             type="password"
           />
 
-          <Button content="Login" primary />
-        </Form>
-      </Grid.Column>
-
-      <Grid.Column verticalAlign="middle">
-        <Button content="Sign up" icon="signup" size="big" />
-      </Grid.Column>
-    </Grid>
-
-    <Divider vertical>Or</Divider>
-  </Segment>
+          <Button color="teal" fluid size="large">
+            Login
+          </Button>
+        </Segment>
+      </Form>
+      <Message>
+        New to us? <a href="/register">Sign Up</a>
+      </Message>
+    </Grid.Column>
+  </Grid>
 );
 
 export default Login;
