@@ -1,5 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import * as Scroll from 'react-scroll';
+import {
+  Link,
+  Element,
+  Events,
+  animateScroll as scroll,
+  scrollSpy,
+  scroller
+} from 'react-scroll';
+
 import {
   Button,
   Container,
@@ -99,14 +109,17 @@ class DesktopContainer extends Component {
                 <Menu.Item as="a" active>
                   Home
                 </Menu.Item>
-                <Menu.Item as="a">Science</Menu.Item>
+                <Menu.Item as="a" href="/landingpage#">
+                  Science
+                </Menu.Item>
                 <Menu.Item as="a">About</Menu.Item>
                 <Menu.Item position="right">
-                  <Button as="a" inverted={!fixed}>
+                  <Button as="a" href="/login" inverted={!fixed}>
                     Log in
                   </Button>
                   <Button
                     as="a"
+                    href="/register"
                     inverted={!fixed}
                     primary={fixed}
                     style={{ marginLeft: '0.5em' }}
@@ -286,7 +299,7 @@ const landingPage = () => (
       </Grid>
     </Segment>
     <Segment style={{ padding: '8em 0em' }} vertical>
-      <Container text>
+      <Container id="ourScience" text>
         <Header as="h1" style={{ fontSize: '3em' }}>
           Our Science
         </Header>
