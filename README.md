@@ -2,7 +2,7 @@
 
 ## Overview
 
-![Home Page](/img/FloraPROHOME.jpeg)
+![Home Page](/img/FloraPROHome.jpeg)
 ![Dashboard](/img/FloraPRODashboard.jpeg)
 
 Bacteria plays an essential role in the health of your skin, digestive system and even mind. FloraPRO allows users to test the contents of their gut and skin bacteria and receive personalized information about both their health.
