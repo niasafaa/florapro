@@ -15,7 +15,7 @@
   "dependencies": {
     "@material-ui/core": "^4.6.1",
     "axios": "^0.19.0",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "bookshelf": "*",
     "bookshelf-secure-password": "^4.0.0",
     "bookshelf-virtuals-plugin": "^0.1.1",
